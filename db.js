@@ -1,21 +1,19 @@
 // smart-truck-backend/db.js
 const mysql = require('mysql2');
 
-// Buat koneksi database
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '', // isi jika pakai password
-  database: 'smart_truck_db'
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || 'smart_truck_db',
+  port: process.env.DB_PORT || 3306
 });
 
-// Tes koneksi
 connection.connect((err) => {
   if (err) {
     console.error('❌ Error connecting to MySQL:', err.message);
-    process.exit(1); // hentikan proses jika koneksi gagal
   } else {
-    console.log('✅ MySQL Connected to smart_truck_db');
+    console.log('✅ MySQL Connected!');
   }
 });
 
